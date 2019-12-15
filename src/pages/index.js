@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import axios from 'axios';
 
 import Layout from '../components/layout';
 import Image from '../components/image';
 import SEO from '../components/seo';
 
 const IndexPage = () => {
-  fetch('/.netlify/functions/hello')
-    .then(response => response.json())
-    .then(console.log);
+  axios.get('/.netlify/functions/hello').then(console.log);
 
   return (
     <Layout>
