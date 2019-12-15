@@ -17,6 +17,7 @@
     "mongodb"
   ],
   "scripts": {
+    "postinstall": "netlify-lambda install",
     "develop": "gatsby develop",
     "start": "run-p start:**",
     "start:app": "npm run develop",
