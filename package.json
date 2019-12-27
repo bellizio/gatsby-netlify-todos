@@ -19,9 +19,11 @@
   "scripts": {
     "postinstall": "netlify-lambda install",
     "develop": "gatsby develop",
-    "start": "run-p start:**",
+    "start": "npm run start:db && run-p start:lambda start:app",
     "start:app": "npm run develop",
     "start:lambda": "netlify-lambda serve src/api/functions",
+    "start:db": "docker-compose up -d",
+    "destroy:db": "docker-compose down",
     "build": "gatsby build && netlify-lambda build src/api/functions",
     "build:app": "gatsby build",
     "build:lambda": "netlify-lambda build src/api/functions"
