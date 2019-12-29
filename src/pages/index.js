@@ -1,13 +1,10 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import axios from 'axios';
 import Layout from '../components/layout';
 import Image from '../components/image';
 import SEO from '../components/seo';
 
 const IndexPage = () => {
-  axios.get('/.netlify/functions/todos-read').then(console.log);
-
   return (
     <Layout>
       <SEO title="Home" />
