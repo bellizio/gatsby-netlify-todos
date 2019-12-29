@@ -1,6 +1,6 @@
 import db from '../db';
 import TodoModel from '../models/todo.model';
-import { getId } from '../../utils';
+import { getId, throwHttpNotFound } from '../../utils';
 
 exports.handler = async (event, context, callback) => {
   try {
@@ -9,13 +9,7 @@ exports.handler = async (event, context, callback) => {
     const deletedTodo = await TodoModel.findByIdAndRemove(id);
 
     if (!deletedTodo) {
-      const error = new Error(`Todo with ID ${id} not found.`);
-      const formattedError = {
-        ...error,
-        statusCode: 404,
-        message: error.message,
-      };
-      throw formattedError;
+      throwHttpNotFound(`Todo with ID ${id} not found.`);
     }
 
     return {
