@@ -1,16 +1,14 @@
 import db from '../db';
+import TodoModel from '../models/todo.model';
+import { apiSuccessResponse, apiFailureResponse } from '../../utils';
 
 exports.handler = async (event, context, callback) => {
   try {
     await db();
+    const todos = await TodoModel.find();
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        msg: 'Todo read all',
-      }),
-    };
+    return apiSuccessResponse(200, todos);
   } catch (error) {
-    throw Error(error);
+    return apiFailureResponse(error);
   }
 };
