@@ -8,7 +8,8 @@ exports.handler = async (event, context, callback) => {
     const { path, body } = event;
     const id = getId(path);
     const data = JSON.parse(body);
-    const updatedTodo = await TodoModel.findByIdAndUpdate(id, data);
+    const options = { new: true };
+    const updatedTodo = await TodoModel.findByIdAndUpdate(id, data, options);
 
     return apiSuccessResponse(200, updatedTodo);
   } catch (error) {
