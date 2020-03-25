@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 
 const todoSchema = new Schema({
   name: String,
-  completed: Boolean,
+  completed: {
+    type: Boolean,
+    default: false,
+  },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
 });
