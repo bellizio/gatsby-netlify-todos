@@ -29,6 +29,7 @@
     "build:lambda": "netlify-lambda build src/api/functions"
   },
   "dependencies": {
+    "@material-ui/core": "^4.9.7",
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "gatsby": "^2.20.6",
