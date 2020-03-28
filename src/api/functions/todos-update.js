@@ -2,7 +2,7 @@ import db from '../db';
 import TodoModel from '../models/todo.model';
 import { getId, apiSuccessResponse, apiFailureResponse } from '../../utils';
 
-exports.handler = async (event, context, callback) => {
+exports.handler = async (event) => {
   try {
     await db();
     const { path, body } = event;

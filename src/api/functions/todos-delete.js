@@ -7,7 +7,7 @@ import {
   apiFailureResponse,
 } from '../../utils';
 
-exports.handler = async (event, context, callback) => {
+exports.handler = async (event) => {
   try {
     await db();
     const { path } = event;
