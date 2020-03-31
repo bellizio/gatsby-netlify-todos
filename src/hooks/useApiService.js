@@ -38,13 +38,13 @@ const dataFetchReducer = (state, action) => {
   }
 };
 
-const useApiService = (fetchMethod, params) => {
+const useApiService = (serviceMethod, params) => {
   const [state, dispatch] = useReducer(dataFetchReducer, initalState);
 
   const fetchData = async () => {
     try {
       dispatch({ type: FETCH_INIT });
-      const { data } = await fetchMethod(params);
+      const { data } = await serviceMethod(params);
       dispatch({ type: FETCH_SUCCESS, data });
     } catch (error) {
       dispatch({ type: FETCH_FAILURE });
