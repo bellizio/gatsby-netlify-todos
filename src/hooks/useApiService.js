@@ -4,12 +4,6 @@ const FETCH_INIT = 'FETCH_INIT';
 const FETCH_SUCCESS = 'FETCH_SUCCESS';
 const FETCH_FAILURE = 'FETCH_FAILURE';
 
-const initalState = {
-  isError: false,
-  isLoading: false,
-  data: null,
-};
-
 const dataFetchReducer = (state, action) => {
   const { type, data } = action;
 
@@ -38,7 +32,13 @@ const dataFetchReducer = (state, action) => {
   }
 };
 
-const useApiService = (serviceMethod, params) => {
+const useApiService = (initialData, serviceMethod, params) => {
+  const initalState = {
+    isError: false,
+    isLoading: false,
+    data: initialData,
+  };
+
   const [state, dispatch] = useReducer(dataFetchReducer, initalState);
 
   const fetchData = async () => {
