@@ -4,6 +4,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Checkbox from '@material-ui/core/Checkbox';
 import Loading from './Loading';
 import useApiService from '../hooks/useApiService';
@@ -46,6 +49,11 @@ const TodoList = () => {
           />
         </ListItemIcon>
         <ListItemText id={labelId} primary={todo.name} />
+        <ListItemSecondaryAction>
+          <IconButton edge="end" aria-label="trash">
+            <DeleteIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
       </ListItem>
     );
   });
