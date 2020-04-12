@@ -15,8 +15,7 @@ export const getAllTodos = () => {
 };
 
 export const updateTodo = (data) => {
-  const id = 0; // todo: parse id from data obj
-  return axios.put(`${FUNCTIONS_BASE_PATH}/todos-update/${id}`, data);
+  return axios.put(`${FUNCTIONS_BASE_PATH}/todos-update/${data._id}`, data);
 };
 
 export const removeTodo = (id) => {
