@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { createTodo } from '../services/todo.service';
 
-const TodoForm = () => {
+const TodoForm = (props) => {
+  const { addTodo } = props;
   const [value, setValue] = useState('');
   const [fieldError, setFieldError] = useState('');
   const [, setErrorMessage] = useState('');
@@ -25,6 +27,7 @@ const TodoForm = () => {
       await createTodo(newTodo);
       setValue('');
       setSuccessMessage('Todo saved');
+      addTodo();
     } catch (error) {
       setErrorMessage('Failed to save todo. Please try again.');
     } finally {
@@ -46,12 +49,20 @@ const TodoForm = () => {
           variant="outlined"
           onChange={handleOnChange}
           value={value}
-          error={fieldError}
+          error={!!fieldError}
           helperText={fieldError}
         />
       </form>
     </>
   );
+};
+
+TodoForm.propTypes = {
+  addTodo: PropTypes.func,
+};
+
+TodoForm.defaultProps = {
+  addTodo: () => {},
 };
 
 export default TodoForm;
