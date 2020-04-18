@@ -28,7 +28,7 @@ const dataFetchReducer = (state, action) => {
         isError: true,
       };
     default:
-      throw new Error();
+      throw new Error(`Unhandled action type: ${type}`);
   }
 };
 
