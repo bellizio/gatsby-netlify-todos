@@ -8,14 +8,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
-import Header from './Header';
 import Footer from './Footer';
 import './layout.css';
 
 const Layout = ({ children }) => {
   return (
     <>
-      <Header />
       <Container>{children}</Container>
       <Footer />
     </>
