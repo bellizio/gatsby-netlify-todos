@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import Header from './Header';
 import Footer from './Footer';
+import './layout.scss';
 
 const Layout = ({ children }) => {
   return (
