@@ -13,6 +13,7 @@ const TodoList = (props) => {
 
   const listItems = todos.map((todo, i) => (
     <TodoItem
+      key={todo._id}
       todo={todo}
       index={i}
       onCompleteTodo={onCompleteTodo}

@@ -36,7 +36,7 @@ const TodoItem = (props) => {
   };
 
   return (
-    <ListItem key={todo._id} dense button>
+    <ListItem dense button>
       <ListItemIcon>
         <Checkbox
           edge="start"
