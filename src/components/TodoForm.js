@@ -7,8 +7,6 @@ const TodoForm = (props) => {
   const { addTodo } = props;
   const [value, setValue] = useState('');
   const [fieldError, setFieldError] = useState('');
-  const [, setErrorMessage] = useState('');
-  const [, setSuccessMessage] = useState('');
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -26,10 +24,9 @@ const TodoForm = (props) => {
     try {
       const { data } = await createTodo(newTodo);
       setValue('');
-      setSuccessMessage('Todo saved');
       addTodo(data);
     } catch (error) {
-      setErrorMessage('Failed to save todo. Please try again.');
+      // console.log(error)
     } finally {
       setFieldError('');
     }
