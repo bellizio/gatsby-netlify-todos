@@ -18,18 +18,21 @@ const TodoItem = (props) => {
       ...item,
       completed: !item.completed,
     };
+
+    onCompleteTodo(updatedTodo);
+
     try {
-      const { data } = await updateTodo(updatedTodo);
-      onCompleteTodo(data);
+      await updateTodo(updatedTodo);
     } catch (error) {
       // console.log(error);
     }
   };
 
   const handleRemoveTodo = (item) => async () => {
+    onRemoveTodo(item);
+
     try {
-      const { data } = await removeTodo(item._id);
-      onRemoveTodo(data);
+      await removeTodo(item._id);
     } catch (error) {
       // console.log(error);
     }
