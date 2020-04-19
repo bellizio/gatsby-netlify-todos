@@ -24,10 +24,10 @@ const TodoForm = (props) => {
     };
 
     try {
-      await createTodo(newTodo);
+      const { data } = await createTodo(newTodo);
       setValue('');
       setSuccessMessage('Todo saved');
-      addTodo();
+      addTodo(data);
     } catch (error) {
       setErrorMessage('Failed to save todo. Please try again.');
     } finally {

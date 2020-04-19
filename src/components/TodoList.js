@@ -1,37 +1,47 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Loading from './Loading';
-import useApiService from '../hooks/useApiService';
-import { getAllTodos } from '../services/todo.service';
+import { removeTodo, updateTodo } from '../services/todo.service';
 
-const TodoList = () => {
-  const [state] = useApiService([], getAllTodos);
-  const [checkedItems, setCheckedItems] = useState([]);
-  const { data, isLoading } = state;
+const TodoList = (props) => {
+  const { todos, isLoading, onCompleteTodo, onRemoveTodo } = props;
 
-  if (isLoading && !data.length) {
+  if (isLoading && !todos.length) {
     return <Loading />;
   }
 
-  const handleCheckboxToggle = (item) => () => {
-    const currentIndex = checkedItems.indexOf(item);
-    const newChecked = [...checkedItems];
-
-    if (currentIndex === -1) {
-      newChecked.push(item);
-    } else {
-      newChecked.splice(currentIndex, 1);
+  const handleCompleteTodo = (todo) => async () => {
+    const updatedTodo = {
+      ...todo,
+      completed: !todo.completed,
+    };
+    try {
+      const { data } = await updateTodo(updatedTodo);
+      onCompleteTodo(data);
+    } catch (error) {
+      // console.log(error);
     }
-
-    setCheckedItems(newChecked);
   };
 
-  const listItems = data.map((todo, i) => {
+  const handleRemoveTodo = (todo) => async () => {
+    try {
+      const { data } = await removeTodo(todo._id);
+      onRemoveTodo(data);
+    } catch (error) {
+      // console.log(error);
+    }
+  };
+
+  const listItems = todos.map((todo, i) => {
     const labelId = `checkbox-list-label-${i}`;
 
     return (
@@ -39,14 +49,23 @@ const TodoList = () => {
         <ListItemIcon>
           <Checkbox
             edge="start"
-            onChange={handleCheckboxToggle(i)}
-            checked={checkedItems.indexOf(i) !== -1}
+            onChange={handleCompleteTodo(todo)}
+            checked={todo.completed}
             tabIndex={-1}
             disableRipple
             inputProps={{ 'aria-labelledby': labelId }}
           />
         </ListItemIcon>
         <ListItemText id={labelId} primary={todo.name} />
+        <ListItemSecondaryAction>
+          <IconButton
+            edge="end"
+            aria-label="remove"
+            onClick={handleRemoveTodo(todo)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
       </ListItem>
     );
   });
@@ -54,6 +73,20 @@ const TodoList = () => {
   const list = <List>{listItems}</List>;
 
   return <Container maxWidth="sm">{list}</Container>;
+};
+
+TodoList.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.shape({})),
+  isLoading: PropTypes.bool,
+  onCompleteTodo: PropTypes.func,
+  onRemoveTodo: PropTypes.func,
+};
+
+TodoList.defaultProps = {
+  todos: [],
+  isLoading: false,
+  onCompleteTodo: () => {},
+  onRemoveTodo: () => {},
 };
 
 export default TodoList;
