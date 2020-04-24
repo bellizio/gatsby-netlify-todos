@@ -29,6 +29,14 @@ body,
   padding: 24px;
 }
 
+.todo-container {
+  width: 100%;
+}
+
+.todo-form {
+  margin-bottom: 24px;
+}
+
 footer {
   display: flex;
   justify-content: center;
@@ -39,5 +47,9 @@ footer {
 @media (min-width: 600px) {
   footer {
     height: 64px;
+  }
+
+  .todo-container {
+    max-width: 420px;
   }
 }

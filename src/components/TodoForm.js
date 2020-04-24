@@ -38,19 +38,17 @@ const TodoForm = (props) => {
   };
 
   return (
-    <>
-      <form onSubmit={handleOnSubmit}>
-        <TextField
-          id="new-todo"
-          label="New Todo"
-          variant="outlined"
-          onChange={handleOnChange}
-          value={value}
-          error={!!fieldError}
-          helperText={fieldError}
-        />
-      </form>
-    </>
+    <form className="todo-form" onSubmit={handleOnSubmit}>
+      <TextField
+        id="new-todo"
+        label="New Todo"
+        variant="outlined"
+        onChange={handleOnChange}
+        value={value}
+        error={!!fieldError}
+        helperText={fieldError}
+      />
+    </form>
   );
 };
 
