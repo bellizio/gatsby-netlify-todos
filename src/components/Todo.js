@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Container from '@material-ui/core/Container';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 import { getAllTodos } from '../services/todo.service';
@@ -38,14 +37,14 @@ const Todo = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <div className="todo-container">
       <TodoForm addTodo={addTodo} />
       <TodoList
         todos={todos}
         onCompleteTodo={completeTodo}
         onRemoveTodo={removeTodo}
       />
-    </Container>
+    </div>
   );
 };
 
