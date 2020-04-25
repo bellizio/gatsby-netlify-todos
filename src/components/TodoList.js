@@ -5,7 +5,13 @@ import Loading from './Loading';
 import TodoItem from './TodoItem';
 
 const TodoList = (props) => {
-  const { todos, isLoading, onCompleteTodo, onRemoveTodo } = props;
+  const {
+    todos,
+    isLoading,
+    onCompleteTodo,
+    onRemoveTodo,
+    onUpdateTodo,
+  } = props;
 
   if (isLoading && !todos.length) {
     return <Loading />;
@@ -18,6 +24,7 @@ const TodoList = (props) => {
       index={i}
       onCompleteTodo={onCompleteTodo}
       onRemoveTodo={onRemoveTodo}
+      onUpdateTodo={onUpdateTodo}
     />
   ));
 
@@ -37,6 +44,7 @@ TodoList.propTypes = {
   isLoading: PropTypes.bool,
   onCompleteTodo: PropTypes.func,
   onRemoveTodo: PropTypes.func,
+  onUpdateTodo: PropTypes.func,
 };
 
 TodoList.defaultProps = {
@@ -44,6 +52,7 @@ TodoList.defaultProps = {
   isLoading: false,
   onCompleteTodo: () => {},
   onRemoveTodo: () => {},
+  onUpdateTodo: () => {},
 };
 
 export default TodoList;

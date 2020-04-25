@@ -19,30 +19,38 @@ const Todo = () => {
     return () => {};
   }, []);
 
-  const addTodo = (todo) => {
+  const handleAddTodo = (todo) => {
     const newTodos = [...todos, todo];
     setTodos(newTodos);
   };
 
-  const completeTodo = (todo) => {
+  const handleCompleteTodo = (todo) => {
     const newTodos = todos.map((t) =>
       t._id === todo._id ? { ...t, completed: !t.completed } : t
     );
     setTodos(newTodos);
   };
 
-  const removeTodo = (todo) => {
+  const handleRemoveTodo = (todo) => {
     const newTodos = todos.filter((t) => t._id !== todo._id);
+    setTodos(newTodos);
+  };
+
+  const handleUpdateTodo = (todo) => {
+    const newTodos = todos.map((t) =>
+      t._id === todo._id ? { ...t, name: todo.name } : t
+    );
     setTodos(newTodos);
   };
 
   return (
     <div className="todo-container">
-      <TodoForm addTodo={addTodo} />
+      <TodoForm onAddTodo={handleAddTodo} />
       <TodoList
         todos={todos}
-        onCompleteTodo={completeTodo}
-        onRemoveTodo={removeTodo}
+        onCompleteTodo={handleCompleteTodo}
+        onRemoveTodo={handleRemoveTodo}
+        onUpdateTodo={handleUpdateTodo}
       />
     </div>
   );

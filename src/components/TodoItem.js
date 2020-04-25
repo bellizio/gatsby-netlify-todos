@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { removeTodo, updateTodo } from '../services/todo.service';
 
 const TodoItem = (props) => {
-  const { todo, index, onCompleteTodo, onRemoveTodo } = props;
+  const { todo, index, onCompleteTodo, onRemoveTodo, onUpdateTodo } = props;
   const labelId = `checkbox-list-label-${index}`;
 
-  const handleCompleteTodo = (item) => async () => {
+  const handleTodoCheck = (item) => async () => {
     const updatedTodo = {
       ...item,
       completed: !item.completed,
@@ -28,7 +28,7 @@ const TodoItem = (props) => {
     }
   };
 
-  const handleRemoveTodo = (item) => async () => {
+  const handleTodoRemove = (item) => async () => {
     onRemoveTodo(item);
 
     try {
@@ -38,24 +38,44 @@ const TodoItem = (props) => {
     }
   };
 
+  const handleTodoBlur = (item) => async () => {
+    try {
+      await updateTodo(item);
+    } catch (error) {
+      // console.log(error)
+    }
+  };
+
+  const handleTodoNameChange = (item) => (event) => {
+    const updatedTodo = { ...item, name: event.target.value };
+    onUpdateTodo(updatedTodo);
+  };
+
   return (
     <ListItem dense button>
       <ListItemIcon>
         <Checkbox
           edge="start"
-          onChange={handleCompleteTodo(todo)}
+          onChange={handleTodoCheck(todo)}
           checked={todo.completed}
           tabIndex={-1}
           disableRipple
           inputProps={{ 'aria-labelledby': labelId }}
         />
       </ListItemIcon>
-      <ListItemText id={labelId} primary={todo.name} />
+      <TextField
+        fullWidth
+        id={labelId}
+        value={todo.name}
+        onChange={handleTodoNameChange(todo)}
+        onBlur={handleTodoBlur(todo)}
+        InputProps={{ disableUnderline: true }}
+      />
       <ListItemSecondaryAction>
         <IconButton
           edge="end"
           aria-label="remove"
-          onClick={handleRemoveTodo(todo)}
+          onClick={handleTodoRemove(todo)}
         >
           <DeleteIcon />
         </IconButton>
@@ -75,6 +95,7 @@ TodoItem.propTypes = {
   index: PropTypes.number,
   onCompleteTodo: PropTypes.func,
   onRemoveTodo: PropTypes.func,
+  onUpdateTodo: PropTypes.func,
 };
 
 TodoItem.defaultProps = {
@@ -82,6 +103,7 @@ TodoItem.defaultProps = {
   index: null,
   onCompleteTodo: () => {},
   onRemoveTodo: () => {},
+  onUpdateTodo: () => {},
 };
 
 export default TodoItem;

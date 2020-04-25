@@ -1,20 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { createTodo } from '../services/todo.service';
 
-const useStyles = makeStyles({
-  root: {
-    width: '100%',
-  },
-});
-
 const TodoForm = (props) => {
-  const { addTodo } = props;
+  const { onAddTodo } = props;
   const [value, setValue] = useState('');
   const [fieldError, setFieldError] = useState('');
-  const classes = useStyles();
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +24,7 @@ const TodoForm = (props) => {
     try {
       const { data } = await createTodo(newTodo);
       setValue('');
-      addTodo(data);
+      onAddTodo(data);
     } catch (error) {
       // console.log(error)
     } finally {
@@ -48,7 +40,7 @@ const TodoForm = (props) => {
   return (
     <form className="todo-form" onSubmit={handleOnSubmit}>
       <TextField
-        className={classes.root}
+        fullWidth
         id="new-todo"
         label="New Todo"
         variant="outlined"
@@ -62,11 +54,11 @@ const TodoForm = (props) => {
 };
 
 TodoForm.propTypes = {
-  addTodo: PropTypes.func,
+  onAddTodo: PropTypes.func,
 };
 
 TodoForm.defaultProps = {
-  addTodo: () => {},
+  onAddTodo: () => {},
 };
 
 export default TodoForm;
