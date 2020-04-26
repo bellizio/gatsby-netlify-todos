@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -12,6 +12,7 @@ import { removeTodo, updateTodo } from '../services/todo.service';
 const TodoItem = (props) => {
   const { todo, index, onCompleteTodo, onRemoveTodo, onUpdateTodo } = props;
   const labelId = `checkbox-list-label-${index}`;
+  const [focusedTodo, setFocusedTodo] = useState({});
 
   const handleTodoCheck = (item) => async () => {
     const updatedTodo = {
@@ -39,16 +40,22 @@ const TodoItem = (props) => {
   };
 
   const handleTodoBlur = (item) => async () => {
-    try {
-      await updateTodo(item);
-    } catch (error) {
-      // console.log(error)
+    if (focusedTodo.name !== item.name) {
+      try {
+        await updateTodo(item);
+      } catch (error) {
+        // console.log(error)
+      }
     }
   };
 
-  const handleTodoNameChange = (item) => (event) => {
+  const handleTodoChange = (item) => (event) => {
     const updatedTodo = { ...item, name: event.target.value };
     onUpdateTodo(updatedTodo);
+  };
+
+  const handleTodofocus = (item) => () => {
+    setFocusedTodo(item);
   };
 
   return (
@@ -67,8 +74,9 @@ const TodoItem = (props) => {
         fullWidth
         id={labelId}
         value={todo.name}
-        onChange={handleTodoNameChange(todo)}
+        onChange={handleTodoChange(todo)}
         onBlur={handleTodoBlur(todo)}
+        onFocus={handleTodofocus(todo)}
         InputProps={{ disableUnderline: true }}
       />
       <ListItemSecondaryAction>
