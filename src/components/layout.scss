@@ -30,6 +30,8 @@ body,
 }
 
 .todo-container {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
@@ -42,6 +44,13 @@ footer {
   justify-content: center;
   align-items: center;
   height: 56px;
+}
+
+.loading-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 600px) {

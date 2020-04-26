@@ -5,14 +5,18 @@ import { getAllTodos } from '../services/todo.service';
 
 const Todo = () => {
   const [todos, setTodos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const { data } = await getAllTodos();
         setTodos(data);
       } catch (error) {
         // console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();
@@ -48,6 +52,7 @@ const Todo = () => {
       <TodoForm onAddTodo={handleAddTodo} />
       <TodoList
         todos={todos}
+        isLoading={isLoading}
         onCompleteTodo={handleCompleteTodo}
         onRemoveTodo={handleRemoveTodo}
         onUpdateTodo={handleUpdateTodo}
