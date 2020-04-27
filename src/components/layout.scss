@@ -1,0 +1,64 @@
+@charset 'utf-8';
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html,
+body,
+#___gatsby,
+#gatsby-focus-wrapper {
+  height: 100%;
+}
+
+#gatsby-focus-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-wrapper {
+  display: flex;
+  justify-content: center;
+  flex: 1 0 auto;
+  padding: 24px;
+}
+
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.todo-form {
+  margin-bottom: 24px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 56px;
+}
+
+.loading-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 600px) {
+  footer {
+    height: 64px;
+  }
+
+  .todo-container {
+    max-width: 420px;
+  }
+}
