@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-
-require('dotenv').config();
+import 'dotenv/config';
 
 const dbUrl = process.env.DB_URL;
 const dbOptions = {
